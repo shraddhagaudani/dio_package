@@ -16,45 +16,46 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-  // late final UserController controller;
-  // late final LoginController loginController;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // controller = Get.put(UserController());
-    // loginController = Get.put(LoginController());
-  }
+
+  UserController userController = Get.put(UserController());
+  LoginController loginController = Get.put(LoginController());
+
+  final userName = Get.arguments['name'] ?? 'N/A';
+  final userEmail = Get.arguments['email'] ?? 'N/A';
+  final userPhoto = Get.arguments['photo'];
 
   @override
   Widget build(BuildContext context) {
-    UserController userController = Get.put(UserController());
-    LoginController loginController = Get.put(LoginController());
-    User? user = LoginController.firebaseAuth.currentUser;
     return GestureDetector(
       onTap: () {
         return FocusScope.of(context).unfocus();
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        drawer: Drawer(
+        drawer:Drawer(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // CircleAvatar(
-              //   backgroundImage: NetworkImage(user?.photoURL ?? ''),
-              //   radius: 40,
-              // ),
+              CircleAvatar(
+                backgroundImage: userPhoto != null ? NetworkImage(userPhoto) : null,
+                radius: 40,
+                child: userPhoto == null ? const Icon(Icons.person) : null,
+              ),
               const SizedBox(height: 10),
-              Text("Name: ${user?.displayName}"),
-              Text("Email: ${user?.email}"),
-              const SizedBox(height: 20),
+              Text("Name: $userName"),
+              Text("Email: $userEmail"),
             ],
           ),
         ),
         appBar: AppBar(
           title: const Text("User"),
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            ),
+          ),
           actions: [
             IconButton(
               onPressed: () {
@@ -76,9 +77,6 @@ class _UserPageState extends State<UserPage> {
             );
           }
 
-          // if (controller.userList.isEmpty) {
-          //   return const Center(child: Text("No users found."));
-          // }
           return ListView.builder(
             itemCount: userController.userList.length,
             itemBuilder: (context, index) {
@@ -201,17 +199,6 @@ class _UserPageState extends State<UserPage> {
             },
           );
 
-          // return ListView.builder(
-          //   itemCount: controller.userList.length,
-          //   itemBuilder: (context, index) {
-          //     final user = controller.userList[index];
-          //     return ListTile(
-          //       title: Text(user.name),
-          //       subtitle: Text(user.email),
-          //       trailing: Text(user.phone),
-          //     );
-          //   },
-          // );
         }),
       ),
     );

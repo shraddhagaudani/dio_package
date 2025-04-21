@@ -19,7 +19,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   // Initialize GetStorage
   await GetStorage.init();
   final LoginController loginController = Get.put(LoginController());
@@ -29,10 +28,6 @@ void main() async {
     debugShowCheckedModeBanner: false,
     initialRoute: loginController.isLoggedIn.value ? AppPages.user : AppPages.initial,
     getPages: AppPages.routes,
-    // theme: ThemeData(
-    //   primaryColor: AppColors.primaryColor,
-    //   colorScheme: const ColorScheme.light(primary: AppColors.primaryColor),
-    //   buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
-    // ),
+
   ));
 }

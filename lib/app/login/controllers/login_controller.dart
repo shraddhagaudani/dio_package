@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import '../../../routes/app_pages.dart';
 
 class LoginController extends GetxController {
-  static final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  static final GoogleSignIn googleSignIn = GoogleSignIn();
+  static FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  static GoogleSignIn googleSignIn = GoogleSignIn();
   Rx<User?> firebaseUser = Rx<User?>(null);
   RxBool isLoading = false.obs;
   var isLoggedIn = false.obs;
@@ -34,14 +34,24 @@ class LoginController extends GetxController {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
+      UserCredential userCredential = await firebaseAuth.signInWithCredential(credential);
+
+      final user = userCredential.user;
+
       // dataStorage.write(AppStrings.islogin, true);
       dataStorage.write(AppStrings.islogin, googleAuth?.accessToken);
       isLoggedIn.value = true;
-      Get.offAllNamed(Routes.userPage);
+      Get.offAllNamed(
+        Routes.userPage,
+        arguments: {
+          'name': user?.displayName,
+          'email': user?.email,
+          'photo': user?.photoURL,
+        },
+      );
 
-      return await FirebaseAuth.instance.signInWithCredential(credential);
+      // return await FirebaseAuth.instance.signInWithCredential(credential);
     } on Exception catch (e) {
-      // TODO
       print('exception->$e');
     }
   }
