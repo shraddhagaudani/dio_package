@@ -1,5 +1,4 @@
 import 'package:dio_package/main.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,8 +15,6 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-
-
   UserController userController = Get.put(UserController());
   LoginController loginController = Get.put(LoginController());
 
@@ -33,7 +30,7 @@ class _UserPageState extends State<UserPage> {
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        drawer:Drawer(
+        drawer: Drawer(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -76,7 +73,6 @@ class _UserPageState extends State<UserPage> {
               ),
             );
           }
-
           return ListView.builder(
             itemCount: userController.userList.length,
             itemBuilder: (context, index) {
@@ -198,7 +194,6 @@ class _UserPageState extends State<UserPage> {
               );
             },
           );
-
         }),
       ),
     );

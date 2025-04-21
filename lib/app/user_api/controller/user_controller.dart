@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio_package/model/userresponse_model.dart';
 import 'package:dio_package/reusability/utills/app_constants.dart';
 import 'package:dio_package/reusability/utills/firebase/firebase_manager.dart';
