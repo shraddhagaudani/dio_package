@@ -14,7 +14,6 @@ class LoginController extends GetxController {
 
   @override
   void onInit() {
-    // firebaseUser.bindStream(auth.authStateChanges());
     super.onInit();
     checkLoginStatus();
   }
@@ -49,7 +48,6 @@ class LoginController extends GetxController {
           'photo': user?.photoURL,
         },
       );
-
       // return await FirebaseAuth.instance.signInWithCredential(credential);
     } on Exception catch (e) {
       print('exception->$e');
