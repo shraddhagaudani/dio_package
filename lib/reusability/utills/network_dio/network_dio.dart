@@ -1,9 +1,7 @@
 import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:get/route_manager.dart';
 import '../../../main.dart';
 import '../app_constants.dart';
 import '../app_string.dart';
